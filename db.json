@@ -6,14 +6,14 @@
     },
     {
       "id": 2,
-      "nome": "plano de estudo"
+      "nome": "Projetinho"
     }
   ],
   "tarefas": [
     {
       "id": 1,
       "duracaoEmSegundos": 120,
-      "descricao": "Configuração do ambiente",
+      "descricao": "Configuração do ambient",
       "projeto": {
         "id": 1,
         "nome": "Alura Tracker 3.0"
