@@ -5,8 +5,8 @@
       "nome": "Alura Tracker 3.0"
     },
     {
-      "nome": "plano de estudos",
-      "id": 2
+      "id": 2,
+      "nome": "plano de estudo"
     }
   ],
   "tarefas": [
