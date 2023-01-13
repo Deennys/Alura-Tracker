@@ -40,6 +40,15 @@
         "nome": "estudos pessoais"
       },
       "id": 3
+    },
+    {
+      "duracaoEmSegundos": 1,
+      "descricao": "vue",
+      "projeto": {
+        "id": 3,
+        "nome": "estudos pessoais"
+      },
+      "id": 4
     }
   ]
 }
