@@ -69,7 +69,6 @@ export default defineComponent({
             descricao,
             idProjeto,
             projetos,
-            store,
             finalizarTarefa
         }
     }
