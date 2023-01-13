@@ -7,13 +7,17 @@
     {
       "id": 2,
       "nome": "Projetinho"
+    },
+    {
+      "id": 3,
+      "nome": "estudos pessoais"
     }
   ],
   "tarefas": [
     {
       "id": 1,
       "duracaoEmSegundos": 120,
-      "descricao": "Configuração do ambient",
+      "descricao": "Configuração do ambiente",
       "projeto": {
         "id": 1,
         "nome": "Alura Tracker 3.0"
@@ -21,12 +25,21 @@
     },
     {
       "duracaoEmSegundos": 1,
-      "descricao": "a",
+      "descricao": "estudando",
       "projeto": {
         "id": 1,
         "nome": "Alura Tracker 3.0"
       },
       "id": 2
+    },
+    {
+      "duracaoEmSegundos": 10,
+      "descricao": "vuex",
+      "projeto": {
+        "id": 3,
+        "nome": "estudos pessoais"
+      },
+      "id": 3
     }
   ]
 }

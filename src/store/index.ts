@@ -1,14 +1,13 @@
 import { INotificacao } from "@/interfaces/INotificacao";
 import { InjectionKey } from "vue";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import { ALTERAR_TAREFA, CADASTRAR_TAREFA, OBTER_TAREFAS } from "./tipo-acoes";
-import { ADICIONA_TAREFA,  ALTERA_TAREFA, DEFINIR_TAREFAS, NOTIFICAR } from "./tipo-mutacoes";
-import http from '@/http';
+import { NOTIFICAR } from "./tipo-mutacoes";
 import ITarefa from "@/interfaces/ITarefa";
 import { EstadoProjeto, projeto } from "./modules/project";
+import { EstadoTarefa, tarefa } from "./modules/tarefas";
 
 export interface Estado {
-    tarefas: ITarefa[],
+    tarefa: EstadoTarefa,
     notificacoes: INotificacao[],
     projeto: EstadoProjeto
 }
@@ -20,7 +19,9 @@ export const store = createStore<Estado>({
         projeto: {
             projetos: []
         },
-        tarefas: [],
+        tarefa: {
+            tarefas: []
+        },
         notificacoes: []
     },
     mutations: {
@@ -31,34 +32,11 @@ export const store = createStore<Estado>({
             setTimeout(() => {
                 state.notificacoes = state.notificacoes.filter(notificacao => notificacao.id != novaNotificacao.id)
             }, 3000)
-        },
-        [DEFINIR_TAREFAS](state, tarefas: ITarefa[]) {
-            state.tarefas = tarefas;
-        },
-        [ADICIONA_TAREFA](state, tarefa: ITarefa) {
-            state.tarefas.unshift(tarefa)
-        },
-        [ALTERA_TAREFA](state, tarefa: ITarefa) {
-            const index = state.tarefas.findIndex(tar => tar.id == tarefa.id);
-            state.tarefas[index] = tarefa
-        }
-    },
-    actions: {
-        [OBTER_TAREFAS] ({ commit }) {
-            http.get('tarefas')
-                .then(resposta => commit(DEFINIR_TAREFAS, resposta.data))
-        },
-        [CADASTRAR_TAREFA] ({ commit }, tarefa: ITarefa) {
-            return http.post('/tarefas', tarefa)
-                .then(resp => commit(ADICIONA_TAREFA, resp.data))
-        },
-        [ALTERAR_TAREFA] ({ commit }, tarefa: ITarefa) {
-            return http.put(`/tarefas/${tarefa.id}`, tarefa)
-                .then(() => commit(ALTERA_TAREFA, tarefa))
         }
     },
     modules: {
-        projeto
+        projeto,
+        tarefa
     }
 })
 
