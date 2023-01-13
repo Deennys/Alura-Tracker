@@ -13,25 +13,22 @@
       </p>
     </div>
     <Tarefa v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa" @aoTarefaClicada="selecionarTarefa" />
-    <div class="modal" :class="{ 'is-active': tarefaSelecionada }" v-if="tarefaSelecionada">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Editar tarefa</p>
-          <button class="delete" aria-label="close" @click="fecharModal"></button>
-        </header>
-        <section class="modal-card-body">
-          <div class="field">
-            <label for="descricaoDaTarefa" class="label">Descrição</label>
-            <input type="text" class="input" v-model="tarefaSelecionada.descricao" id="descricaoDaTarefa">
-          </div>
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-success" @click="alterarTarefa">Salvar alterações</button>
-          <button class="button" @click="fecharModal">Cancelar</button>
-        </footer>
-      </div>
-    </div>
+    <Modal :mostrar="tarefaSelecionada != null">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Editar tarefa</p>
+        <button class="delete" aria-label="close" @click="fecharModal"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="field">
+          <label for="descricaoDaTarefa" class="label">Descrição</label>
+          <input type="text" class="input" v-model="tarefaSelecionada.descricao" id="descricaoDaTarefa">
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" @click="alterarTarefa">Salvar alterações</button>
+        <button class="button" @click="fecharModal">Cancelar</button>
+      </footer>
+    </Modal>
   </div>
 </template>
 
@@ -40,6 +37,7 @@ import { computed, defineComponent, ref, watchEffect } from 'vue';
 import Formulario from '../components/Formulario.vue';
 import Tarefa from '../components/Tarefa.vue';
 import Box from '../components/Box.vue';
+import Modal from '../components/Modal.vue';
 import ITarefa from '../interfaces/ITarefa';
 import { useStore } from '@/store';
 import { OBTER_TAREFAS, CADASTRAR_TAREFA, OBTER_PROJETOS, ALTERAR_TAREFA } from '@/store/tipo-acoes';
@@ -49,7 +47,8 @@ export default defineComponent({
   components: {
     Formulario,
     Tarefa,
-    Box
+    Box,
+    Modal
   },
   data() {
     return {
@@ -87,8 +86,8 @@ export default defineComponent({
 
     const filtro = ref('');
 
-//    const tarefas = computed(() => store.state.tarefa.tarefas
-//      .filter(t => !filtro.value || t.descricao.toLowerCase().includes(filtro.value.toLowerCase()) || t.projeto.nome.toLowerCase().includes(filtro.value.toLowerCase())));
+    //    const tarefas = computed(() => store.state.tarefa.tarefas
+    //      .filter(t => !filtro.value || t.descricao.toLowerCase().includes(filtro.value.toLowerCase()) || t.projeto.nome.toLowerCase().includes(filtro.value.toLowerCase())));
 
     watchEffect(() => {
       store.dispatch(OBTER_TAREFAS, filtro.value);
